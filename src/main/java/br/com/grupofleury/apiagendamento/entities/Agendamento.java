@@ -2,22 +2,21 @@ package br.com.grupofleury.apiagendamento.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "tb_cliente")
-public class Cliente implements Serializable {
+@Table(name = "tb_agendamento")
+public class Agendamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -25,27 +24,24 @@ public class Cliente implements Serializable {
 	private Long id;
 
 	@Column(nullable = false)
-	private String nome;
-
-	@Column(nullable = false, unique = true)
-	private String cpf;
+	private Instant dataAgendamento;
 
 	@Column(nullable = false)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT")
-	private Instant dataNascimento;
+	private Long idExame;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "cliente")
-	private List<Agendamento> agendamentos;
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
 
-	public Cliente() {
+	public Agendamento() {
 	}
 
-	public Cliente(Long id, String nome, String cpf, Instant dataNascimento) {
+	public Agendamento(Long id, Instant dataAgendamento, Long idExame, Cliente cliente) {
 		this.id = id;
-		this.nome = nome;
-		this.cpf = cpf;
-		this.dataNascimento = dataNascimento;
+		this.dataAgendamento = dataAgendamento;
+		this.idExame = idExame;
+		this.cliente = cliente;
 	}
 
 	public Long getId() {
@@ -56,36 +52,28 @@ public class Cliente implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public Instant getDataAgendamento() {
+		return dataAgendamento;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDataAgendamento(Instant dataAgendamento) {
+		this.dataAgendamento = dataAgendamento;
 	}
 
-	public String getCpf() {
-		return cpf;
+	public Long getIdExame() {
+		return idExame;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+	public void setIdExame(Long idExame) {
+		this.idExame = idExame;
 	}
 
-	public Instant getDataNascimento() {
-		return dataNascimento;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setDataNascimento(Instant dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
-	public List<Agendamento> getAgendamentos() {
-		return agendamentos;
-	}
-
-	public void setAgendamentos(List<Agendamento> agendamentos) {
-		this.agendamentos = agendamentos;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	@Override
@@ -104,7 +92,7 @@ public class Cliente implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cliente other = (Cliente) obj;
+		Agendamento other = (Agendamento) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
