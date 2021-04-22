@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.grupofleury.apiagendamento.entities.Exame;
+import br.com.grupofleury.apiagendamento.entities.ExameDTO;
 import br.com.grupofleury.apiagendamento.services.ExameService;
 
 @RestController
@@ -19,9 +19,9 @@ public class ExameController {
 	private ExameService exameService;
 	
 	@GetMapping
-	public ResponseEntity<List<Exame>> getExames() {
+	public ResponseEntity<List<ExameDTO>> getExames() {
 		
-		List<Exame> exames = exameService.getExames();
+		List<ExameDTO> exames = exameService.getExamesDTO();
 		
 		System.out.println(exames);
 		

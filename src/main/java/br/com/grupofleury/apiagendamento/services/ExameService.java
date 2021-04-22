@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import br.com.grupofleury.apiagendamento.entities.Exame;
+import br.com.grupofleury.apiagendamento.entities.ExameDTO;
 
 @Service
 public class ExameService {
@@ -47,6 +48,17 @@ public class ExameService {
 			exames.add(exame);
 		}
 		return exames;
+	}
+	
+	public List<ExameDTO> getExamesDTO() {
+		List<Exame> exames = getExames();
+		List<ExameDTO> examesDTO = new ArrayList<>();
+		for (Exame exame : exames) {
+			ExameDTO exameDTO = new ExameDTO(exame.getId(), exame.getName());
+			examesDTO.add(exameDTO);
+		}
+		return examesDTO;
+				
 	}
 	
 }
