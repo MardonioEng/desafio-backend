@@ -41,11 +41,11 @@ public class Cliente implements Serializable {
 	public Cliente() {
 	}
 
-	public Cliente(Long id, String nome, String cpf, Instant dataNascimento) {
+	public Cliente(Long id, String nome, String cpf, String dataNascimento) {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
-		this.dataNascimento = dataNascimento;
+		setDataNascimento(dataNascimento);
 	}
 
 	public Long getId() {
@@ -76,8 +76,9 @@ public class Cliente implements Serializable {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Instant dataNascimento) {
-		this.dataNascimento = dataNascimento;
+	public void setDataNascimento(String dataNascimento) {
+		dataNascimento = String.format(dataNascimento + "T00:00:00Z");
+		this.dataNascimento = Instant.parse(dataNascimento);
 	}
 
 	public List<Agendamento> getAgendamentos() {

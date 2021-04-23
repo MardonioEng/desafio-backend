@@ -28,5 +28,9 @@ public class ClienteService {
 		Optional<Cliente> obj = clienteRepository.findByCpf(cpf);
 		return obj;
 	}
+
+	public Cliente inserir(Cliente cliente) {
+		return clienteRepository.save(cliente);
+	}
 	
 }
