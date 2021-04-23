@@ -1,6 +1,7 @@
 package br.com.grupofleury.apiagendamento.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,11 @@ public class ClienteService {
 	
 	public List<Cliente> getClientes() {
 		return clienteRepository.findAll();
+	}
+	
+	public Optional<Cliente> findById(Long id) {
+		Optional<Cliente> obj = clienteRepository.findById(id);
+		return obj;
 	}
 	
 }
