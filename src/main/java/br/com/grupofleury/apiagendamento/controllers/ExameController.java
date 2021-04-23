@@ -17,17 +17,16 @@ public class ExameController {
 
 	@Autowired
 	private ExameService exameService;
-	
+
 	@GetMapping
 	public ResponseEntity<List<ExameDTO>> getExames() {
-		
+
 		List<ExameDTO> exames = exameService.getExamesDTO();
-		
+
 		System.out.println(exames);
-		
+
 		return ResponseEntity.ok().body(exames);
-		
-		
+
 	}
-	
+
 }
